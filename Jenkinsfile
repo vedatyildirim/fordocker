@@ -1,28 +1,20 @@
 pipeline {
-    agent any
-    tools {
-        maven 'Maven 3.3.9'
-        jdk 'jdk11'
+  agent { dockerfile true }
+  stages {
+    stage('build') {
+      steps {
+        sh '''
+          docker build -t dockerdemo .
+        '''
+     }
+  }
+  stages {
+    stage('run') {
+      steps {
+        sh '''
+          docker run -d -p 8085:8085 dockerdemo
+        '''
+      }
     }
-    stages {
-        stage ('Initialize') {
-            steps {
-                sh '''
-                    echo "PATH = ${PATH}"
-                    echo "M2_HOME = ${M2_HOME}"
-                '''
-            }
-        }
-
-        stage ('Build') {
-            steps {
-                sh 'mvn -Dmaven.test.failure.ignore=true install'
-            }
-            post {
-                success {
-                    junit 'target/surefire-reports/**/*.xml'
-                }
-            }
-        }
-    }
+  }
 }
