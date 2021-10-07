@@ -1,20 +1,21 @@
+#!groovy
+
 pipeline {
-  agent { dockerfile true }
+  agent none
   stages {
-    stage('build') {
+    stage('Docker Build') {
+      agent any
       steps {
-        sh '''
-          docker build -t dockerdemo .
-        '''
-     }
-  }
-  stages {
-    stage('run') {
+        sh 'docker build -t dockerdemo .'
+      }
+    }
+    stage('Docker Run') {
+      agent any
       steps {
-        sh '''
-          docker run -d -p 8085:8085 dockerdemo
-        '''
+        sh 'docker run -d -p 8085:8085 dockerdemo'
       }
     }
   }
 }
+
+  
