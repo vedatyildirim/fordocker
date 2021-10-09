@@ -1,4 +1,7 @@
 FROM adoptopenjdk/openjdk11:ubi
-EXPOSE 8085
-COPY target/fordocker-1.0.jar fordocker.jar
-CMD ["java", "-jar", "fordocker.jar"]
+VOLUME /tmp
+# EXPOSE 8085
+# COPY target/fordocker-1.0.jar app.jar
+COPY run.sh .
+COPY target/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
