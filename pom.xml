@@ -18,9 +18,6 @@
 		<java.version>11</java.version>
 		<maven.compiler.source>11</maven.compiler.source>
 		<maven.compiler.target>11</maven.compiler.target>
-      		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-      		<docker.image.prefix>dockerdemo</docker.image.prefix>
    	</properties>
 	<dependencies>
 		<dependency>
@@ -37,22 +34,6 @@
 
 	<build>
 		<plugins>
-			 <plugin>
-			    	<groupId>com.spotify</groupId>
-			    	<artifactId>docker-maven-plugin</artifactId>
-			    	<version>1.0.0</version>
-
-			    	<configuration>
-			       		<imageName>${docker.image.prefix}/${project.artifactId}</imageName>
-			       		<dockerDirectory></dockerDirectory>
-			       		<resources>
-				  		<resource>
-				     			<directory>${project.build.directory}</directory>
-				     			<include>${project.build.finalName}.jar</include>
-				  		</resource>
-			       		</resources>
-			    	</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
