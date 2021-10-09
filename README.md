@@ -6,13 +6,13 @@ https://www.linkedin.com/pulse/tutorial-run-spring-boot-web-service-windows-dock
 > mvn clean install
 
 > docker build -t dockerdemo .
-docker run -d -p 8085:8085 dockerdemo
+> docker run -d -p 8085:8085 dockerdemo
+
 > docker images
   output:
   REPOSITORY                 TAG         IMAGE ID       CREATED          SIZE
   fordocker                  latest      018368d43094   56 seconds ago   595MB
 
-> docker run -d -p 8081:8081 dockerdemo
   docker run -d -p 8085:8085 dockerdemo
 > docker ps
   output:
