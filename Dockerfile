@@ -1,8 +1,15 @@
-FROM adoptopenjdk/openjdk11:ubi
-VOLUME /tmp
-# EXPOSE 8085
-COPY target/fordocker-1.0.jar tmp/dockerdemo.jar
-COPY run.sh tmp/run.sh
-# ADD target/*.jar app.jar
-CMD ["java","-jar","dockerdemo.jar"]
-ENTRYPOINT ["run.sh"]
+#
+# Build stage
+#
+FROM maven:3.6.0-jdk-11-slim AS build
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package install
+
+#
+# Package stage
+#
+FROM openjdk:11-jre-slim
+COPY --from=build /home/app/target/fordocker-1.0.jar /usr/local/lib/demo.jar
+EXPOSE 8085
+ENTRYPOINT ["java","-jar","/usr/local/lib/demo.jar"]
